@@ -1,0 +1,127 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+body {
+    background-repeat: no-repeat;
+    font-family: HarmonyOS Sans SC, sans-serif !important;
+    color: #000000;
+    margin: 0 auto !important;
+}
+
+.adaptive-box {
+    position: absolute;
+    /* 基于视口居中，不受父容器宽度影响 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+    --lv: 0;
+}
+@media (orientation: portrait) {
+    .adaptive-box {
+        width: 90vw;
+    }
+}
+
+
+[data-fade] {
+    --lv: 0;
+    --delay: 0.1s;
+    --start: 0ms;
+    --anima: latter-slice-top;
+}
+@for $i from 1 through 20 {
+    [data-fades] > *:nth-child(#{$i}) {
+        --lv: #{$i};
+    }
+}
+
+[data-fades] > * {
+    --lv: 0;
+    --delay: 0.1s;
+    --start: 0ms;
+    --anima: latter-slice-top;
+    animation: var(--anima) 0.5s both;
+    animation-delay: calc(var(--start) + var(--lv) * var(--delay));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-fades] > *,
+    [data-fade] {
+        animation: var(--anima) 0.5s both;
+        animation-delay: calc(var(--lv) * var(--delay) + var(--start));
+    }
+}
+
+[data-fade-controller="false"][data-fade] {
+    animation: none;
+}
+[data-fades-controller="false"][data-fades] > * {
+    animation: none;
+}
+
+@keyframes latter-slice-top {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        transform: none;
+    }
+}
+@keyframes latter-slice-left {
+    0% {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+    to {
+        transform: none;
+    }
+}
+@keyframes latter-slice-right {
+    0% {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    to {
+        transform: none;
+    }
+}
+
+mdui-list-item {
+    font-size: 24px;
+    border-radius: 2em;
+    backdrop-filter: blur(500px);
+    background-color: var(--white-alpha-10);
+    bottom: 8px;
+    box-shadow: rgba(0, 0, 0, .2) 0 0 5px;
+    max-width: calc(100% - 20px);
+    overflow: hidden;
+    padding: -5px;
+    margin: 5px;
+    min-height: 24px;
+}
+
+#ender {
+    font-size: 12px;
+    font-family: Consolas;
+    border-radius: 2em;
+    backdrop-filter: blur(33px);
+    background-color: var(--white-alpha-10);
+    bottom: 10px;
+    box-shadow: rgba(0, 0, 0, .2) 0 0 10px;
+    left: 50%;
+    max-width: calc(100% - 20px);
+    overflow: hidden;
+    padding: 10px;
+    position: fixed;
+    transform: translate(-50%);
+    transition: .25s;
+    white-space: nowrap;
+}

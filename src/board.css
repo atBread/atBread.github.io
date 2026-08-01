@@ -1,0 +1,48 @@
+.main-view {
+    width:100%;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:26px;
+}
+.wrap-box {
+    position: fixed;
+    inset: 0;
+    will-change: filter;
+}
+.scroll-mask {
+    position: fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:0;
+    z-index:9999;
+    overflow:hidden;
+    will-change: height, background;
+}
+.mask-inner {
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:32px;
+}
+
+.v-arrow {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 32px;
+    z-index: 10000;
+    visibility: visible;
+    animation: flash 1s ease-in-out infinite alternate;
+}
+@keyframes flash {
+    0% {opacity: 0.12;}
+    100% {opacity: 0.35;}
+}

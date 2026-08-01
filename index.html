@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>atBread</title>
+    <title>[atBread]</title>
     <link rel="stylesheet" type="text/css" href="./src/style.css">
+    <link rel="stylesheet" type="text/css" href="./src/board.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/mdui@2/mdui.css">
+    <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.xrbk.cn/fonts/HarmonyOS_Sans_SC/result.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <div class="canvas-wrapper" id="wrapper">
-        <canvas id="dotCanvas"></canvas>
+<div class="wrap-box" id="wrap">
+    <div class="main-view">
+        <div class="canvas-wrapper" id="wrapper">
+            <canvas id="dotCanvas"></canvas>
+        </div></div></div>
+
+<div class="scroll-mask" id="mask">
+    <div class="mask-inner">
+        <mdui-button icon="search" end-icon="arrow_forward" href="./xvyu" target="_blank">前往 下载站</mdui-button><h1> </h1>
+        <mdui-button icon="search" end-icon="arrow_forward" href="https://www.mdui.org" target="_blank">前往 文档站</mdui-button>
     </div>
 </div>
+
+<svg class="v-arrow" id="vSvg" viewBox="0 0 64 32" fill="none">
+    <path d="M4 4L24 28L44 4" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<script src="./src/swipe.js"></script>
 <script src="./src/wave.js"></script>
 </body>
 </html>

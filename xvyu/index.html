@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[atBread]--徐语下载</title>
+  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+  <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.xrbk.cn/fonts/HarmonyOS_Sans_SC/result.css" rel="stylesheet">
+</head>
+<body>
+<div style="text-align: center;">
+  <div class="adaptive-box">
+
+    <h1 data-fade  style="--lv: 0">下载</h1>
+    <mdui-text-field clearable data-fade name="name" style="--lv: 1"
+                     label="跳转到…"
+                     value="键入单个数字以跳转预览缩略图页码 在右侧清除该段文本=>"></mdui-text-field>
+
+    <br></br>
+
+    <mdui-button data-fade  style="--lv: 2" type="submit" icon="search" form="myForm">查询
+    </mdui-button>
+    <mdui-button data-fade  style="--lv: 3" type="reset" icon="refresh" variant="tonal" onclick="location.reload()">重置
+    </mdui-button>
+
+    <br></br><br></br>
+    <mdui-tabs value="tab-1" style="--lv: 3">
+      <mdui-tab value="tab-1" style="--lv: 3">预览</mdui-tab>
+      <mdui-tab value="tab-2" style="--lv: 3">下载途径选择</mdui-tab>
+
+      <mdui-tab-panel slot="panel" value="tab-1" style="--lv: 3">
+        <br></br>
+        <mdui-list-item rounded data-fade  style="--lv: 3">目前这里还没有东西…😶</mdui-list-item>
+      </mdui-tab-panel>
+      <mdui-tab-panel slot="panel" value="tab-2" style="--lv: 3">
+        <br></br>
+        <mdui-list-item rounded data-fade  style="--lv: 3" onclick="window.location.href='Https://atbrea.de'">从 直链(站内) 获取</mdui-list-item>
+        <mdui-list-item rounded data-fade  style="--lv: 4" onclick="window.location.href='Https://atbrea.de'">从 GitHub仓库 获取</mdui-list-item>
+        <mdui-list-item rounded data-fade  style="--lv: 5" onclick="window.location.href='Https://atbrea.de'">从 蓝奏云网盘 获取</mdui-list-item>
+      </mdui-tab-panel>
+    </mdui-tabs>
+    <br></br><br></br><br></br><br></br>
+
+  </div>
+</div>
+<div class="wrapper">
+  <div id="ender">
+    Copyright © QHFS
+  </div>
+<!-- Copyright © QHFS's Everyone | 直链下载途径由 InfiniCLOUD Japan及Cloudflare Workers 提供支持 | 本网站由 GitHub及Vercel 驱动  -->
+</div>
+</body>
+</html>
