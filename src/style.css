@@ -4,7 +4,7 @@ body {
     background: var(--bg);
     display: flex; justify-content: center; align-items: center;
     min-height: 100vh;
-    font-family: HarmonyOS Sans SC, sans-serif !important;
+    font-family: HarmonyOS Sans SC !important;
     overflow: hidden; cursor: crosshair;
     user-select: none; -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
