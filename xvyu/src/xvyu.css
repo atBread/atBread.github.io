@@ -14,17 +14,95 @@ body {
     margin: 0 auto !important;
 }
 
-.adaptive-box {
-    position: absolute;
-    /* 基于视口居中，不受父容器宽度影响 */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50vw;
-    --lv: 0;
+.container {
+    max-width: 100vw;
+    margin: 0 auto;
+    padding: 1rem;
 }
-@media (orientation: portrait) {
-    .adaptive-box {
-        width: 90vw;
+/* 网格外层容器限制PC仅占屏幕1/2宽度 */
+.grid-wrap-wrapper {
+    max-width: 50vw;
+    margin: 0 auto;
+}
+/* PC默认3列 */
+.grid-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.thumb-card {
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+/* A5固定比例容器 210:297 */
+.thumb-box {
+    width: 100%;
+    aspect-ratio: 210 / 297;
+    background: #eee;
+    overflow: hidden;
+}
+.thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#previewDialog::part(panel) {
+    max-width: 92vw;
+    max-height: 92vh;
+}
+.dialog-scroll-wrap {
+    overflow: hidden !important;
+    scrollbar-width: none;
+}
+.dialog-scroll-wrap::-webkit-scrollbar {
+    display: none;
+}
+.a5-preview-box {
+    width: min(82vw, 460px);
+    aspect-ratio: 210 / 297;
+    background: #f5f5f5;
+    border-radius: var(--mdui-shape-corner-medium);
+    overflow: hidden;
+    touch-action: none;
+    position: relative;
+}
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+    cursor: zoom-in;
+}
+.preview-img.zoom {
+    cursor: zoom-out;
+}
+.preview-img.drag {
+    cursor: grabbing;
+    transition: none;
+}
+/* 手机竖屏：小于768px改为2列 */
+@media (max-width: 768px) {
+    .grid-wrap-wrapper {
+        max-width: 100vw;
+    }
+    .grid-wrap {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
