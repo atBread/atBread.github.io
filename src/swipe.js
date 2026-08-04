@@ -12,7 +12,7 @@ const config = {
     maxBlur: 12,
     maskBaseColor: 'rgb(255,255,255)',
     arrowDestroyed: false,
-    arrowSpeedRatio: 1.2,
+    arrowSpeedRatio: 1.5,
     arrowOffsetTop: 33
 };
 
@@ -23,7 +23,7 @@ function animateMask() {
     const ratio = config.currentHeight / config.maxHeight;
 
     if (!config.arrowDestroyed) {
-        // 速度133% + 距离蒙版顶部固定上方33px
+        // 速度变量 + 距离蒙版顶部固定上方33px
         const arrowBottom = config.currentHeight * config.arrowSpeedRatio + config.arrowOffsetTop;
         vSvg.style.bottom = `${arrowBottom}px`;
 
