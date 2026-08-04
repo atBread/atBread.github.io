@@ -99,7 +99,7 @@ img {
 /* 手机竖屏：小于768px改为2列 */
 @media (max-width: 768px) {
     .grid-wrap-wrapper {
-        max-width: 100vw;
+        max-width: 90vw;
     }
     .grid-wrap {
         grid-template-columns: repeat(2, 1fr);
@@ -190,7 +190,7 @@ mdui-list-item {
     font-size: 12px;
     font-family: Consolas;
     border-radius: 2em;
-    backdrop-filter: blur(33px);
+    backdrop-filter: blur(15px);
     background-color: var(--white-alpha-10);
     bottom: 10px;
     box-shadow: rgba(0, 0, 0, .2) 0 0 10px;
