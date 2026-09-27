@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN" class="mdui-theme-auto" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+<meta name="renderer" content="webkit">
+<title>提词器</title>
+
+<link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+<script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ============ 全局顶栏 ============ -->
+<mdui-top-app-bar class="app-top-bar" variant="medium" scroll-behavior="shrink elevate">
+  <mdui-button-icon icon="article" disabled style="opacity:.85"></mdui-button-icon>
+
+  <mdui-top-app-bar-title>
+    提词器
+    <span slot="label-large">提词器</span>
+  </mdui-top-app-bar-title>
+
+  <div style="flex-grow: 1"></div>
+
+  <div class="top-bar-actions">
+    <input type="file" id="fileInput"
+      accept=".txt,.md,.markdown,.docx,.odt,.doc,.ttf,.otf,.woff,.woff2" hidden>
+    <mdui-button-icon id="importBtn" icon="upload_file" title="导入文档或字体"></mdui-button-icon>
+    <mdui-button-icon id="startBtn" icon="fullscreen" title="开始提词"></mdui-button-icon>
+  </div>
+</mdui-top-app-bar>
+
+<div class="page">
+
+  <!-- ============ 主页视图 ============ -->
+  <div class="view active" id="view-home">
+
+    <section class="panel">
+      <div class="controls">
+        <div class="ctrl">
+          <span class="ctrl-label">速度</span>
+          <mdui-slider id="speedSlider" min="5" max="300" step="5" value="60"></mdui-slider>
+          <span class="ctrl-value" id="speedValue">60</span>
+        </div>
+        <div class="ctrl">
+          <span class="ctrl-label">字号</span>
+          <mdui-slider id="fontSlider" min="16" max="120" step="2" value="40"></mdui-slider>
+          <span class="ctrl-value" id="fontValue">40</span>
+        </div>
+
+        <div class="ctrl">
+          <span class="ctrl-label">字色</span>
+          <input type="color" id="textColorInput" value="#ffffff">
+        </div>
+        <div class="ctrl">
+          <span class="ctrl-label">标线色</span>
+          <input type="color" id="guideColorInput" value="#e53935">
+        </div>
+
+        <div class="ctrl ctrl-margin">
+          <span class="ctrl-label">文本宽度</span>
+          <mdui-slider id="marginSlider" min="10" max="100" step="1" value="100"></mdui-slider>
+          <span class="ctrl-value" id="marginValue">100%</span>
+        </div>
+
+        <div class="ctrl ctrl-full">
+          <span class="ctrl-label">选项</span>
+          <div class="chip-group">
+            <mdui-chip id="chipGuide"    selectable selected icon="horizontal_rule">显示标线</mdui-chip>
+            <mdui-chip id="chipMirror"   selectable icon="flip">反转镜像</mdui-chip>
+            <mdui-chip id="chipIndent"   selectable icon="format_indent_increase">首行缩进 2 字</mdui-chip>
+            <mdui-chip id="chipAutoExit" selectable icon="logout">播放完毕自动退出</mdui-chip>
+            <mdui-chip id="chipNoKeys"   selectable icon="keyboard_hide">禁用全屏后快捷键</mdui-chip>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="editor-section">
+      <div class="editor-wrap" id="editorWrap">
+        <mdui-text-field autosize min-rows="2" max-rows="10" counter maxlength="50000" label="题词器文本" id="editorField"
+          placeholder="在此输入或粘贴提词内容，也可将 txt / md / docx / odt / ttf / otf / woff / woff2 文件拖拽到页面导入…"
+        ></mdui-text-field>
+      </div>
+    </section>
+
+    <section class="preview-pane" id="previewPane">
+      <div class="preview-badge">预览</div>
+      <div class="viewport preview-viewport" id="previewViewport">
+        <div class="guide-band"></div>
+        <div class="text-layer" id="previewText"></div>
+      </div>
+      <div class="drag-resizer" id="previewResizer" title="拖拽调整预览窗高度"></div>
+      <div class="preview-scroll-glow" id="previewScrollGlow"></div>
+    </section>
+
+    <br><br><br><br><br><br><br><br>
+  </div>
+
+  <!-- ============ 字体视图 ============ -->
+  <div class="view options-view" id="view-options">
+    <section class="panel">
+      <h3 class="options-title">文本字体</h3>
+
+      <div class="option-row">
+        <span class="option-label">字体</span>
+        <mdui-select id="fontFamilySelect" value="mono">
+          <mdui-menu-item value="mono">等宽字体</mdui-menu-item>
+          <mdui-menu-item value="system">系统字体</mdui-menu-item>
+          <mdui-menu-item value="serif">衬线字体</mdui-menu-item>
+          <mdui-menu-item value="custom" disabled>自定义字体</mdui-menu-item>
+        </mdui-select>
+        <span class="option-desc">
+          等宽字体：Consolas / Menlo，数字与拉丁字母用等宽字形，中文自动回退到系统字体。<br>
+          系统字体：跟随操作系统的默认界面字体。<br>
+          衬线字体：Georgia / 宋体等衬线字形。
+        </span>
+      </div>
+
+      <div class="option-row">
+        <span class="option-label">自定义字体</span>
+        <span class="option-desc">
+          将 .ttf / .otf / .woff / .woff2 字体文件直接拖入页面，或点击顶栏的
+          <mdui-icon name="upload_file" style="font-size:14px;vertical-align:-2px;"></mdui-icon>
+          图标导入，导入后会自动加载并选中。
+        </span>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ 关于视图 ============ -->
+  <div class="view about-view" id="view-about">
+    <mdui-icon name="article" class="about-icon"></mdui-icon>
+    <br>
+    <p class="about-subtitle">使用了 mdui 2 web 主题</p>
+
+    <div class="about-desc">
+      <p><mdui-icon name="check_circle"></mdui-icon>没什么好写的。</p>
+      <a href="https://atbrea.de/" target="_blank" rel="noopener">
+        <mdui-icon name="home"></mdui-icon> 返回主站
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ 底部导航栏 ============ -->
+<mdui-navigation-bar id="navBar" value="home">
+  <mdui-navigation-bar-item icon="home" value="home">主页</mdui-navigation-bar-item>
+  <mdui-navigation-bar-item icon="text_fields" value="options">字体</mdui-navigation-bar-item>
+  <mdui-navigation-bar-item icon="info" value="about">关于</mdui-navigation-bar-item>
+</mdui-navigation-bar>
+
+<!-- ============ 全屏容器 ============ -->
+<div class="fs-root" id="fsRoot">
+  <div class="viewport fs-viewport" id="fsViewport">
+    <div class="guide-band"></div>
+    <div class="text-layer" id="fsText"></div>
+  </div>
+
+  <mdui-button-icon id="fsMenuBtn" class="fs-menu-btn mdui-theme-dark"
+    icon="tune" title="提词设置"></mdui-button-icon>
+
+  <div class="fs-panel mdui-theme-dark" id="fsPanel">
+    <div class="fs-panel-head">
+      <span>提词设置</span>
+      <mdui-button-icon icon="close" id="fsPanelCloseBtn" title="收起设置"></mdui-button-icon>
+    </div>
+
+    <div class="fs-row"><span>速度</span><span id="fsSpeedValue">60</span></div>
+    <mdui-slider id="fsSpeedSlider" min="5" max="300" step="5" value="60"></mdui-slider>
+
+    <div class="fs-row"><span>字号</span><span id="fsFontValue">40</span></div>
+    <mdui-slider id="fsFontSlider" min="16" max="120" step="2" value="40"></mdui-slider>
+
+    <div class="fs-row fs-row-margin"><span>文本宽度</span><span id="fsMarginValue">100%</span></div>
+    <mdui-slider id="fsMarginSlider" class="fs-margin-slider" min="10" max="100" step="1" value="100"></mdui-slider>
+
+    <div class="fs-colors">
+      <label>字色 <input type="color" id="fsTextColor" value="#ffffff"></label>
+      <label>标线 <input type="color" id="fsGuideColor" value="#e53935"></label>
+    </div>
+
+    <div class="fs-exit-row">
+      <mdui-button variant="outlined" icon="fullscreen_exit" id="fsExitBtn">退出全屏</mdui-button>
+    </div>
+
+    <div class="fs-tips">
+      滚轮 滚动文本 · 空格 暂停/继续<br>
+      ↑↓←→ 翻 2 行 · R 重置 · ESC 退出
+    </div>
+  </div>
+
+  <mdui-dialog id="endDialog" class="mdui-theme-dark" close-on-esc close-on-overlay-click>
+    <span slot="headline">播放结束</span>
+    <span slot="description">提词内容已播放完毕，是否退出全屏？</span>
+    <mdui-button slot="action" variant="text" id="endStayBtn">留在全屏</mdui-button>
+    <mdui-button slot="action" variant="tonal" id="endExitBtn">退出全屏</mdui-button>
+  </mdui-dialog>
+</div>
+
+<!-- ============ 拖拽涟漪遮罩 ============ -->
+<div class="drop-ripple" id="dropRipple">
+  <div class="drop-ripple-mask" id="dropRippleMask"></div>
+  <div class="drop-cursor-glow" id="dropCursorGlow"></div>
+</div>
+
+<!-- ============ 首次引导遮罩 ============ -->
+<div class="guide-overlay" id="guideOverlay" hidden>
+  <div class="guide-glow"   id="guideGlow"></div>
+  <div class="guide-arrow"  id="guideArrow"></div>
+  <div class="guide-text"   id="guideText">
+    <span class="guide-main">点击此按钮开始提词</span>
+    <span class="guide-sub">进入全屏，文本自动从下往上滚动</span>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
