@@ -2,18 +2,26 @@
 <html lang="zh-CN" class="mdui-theme-auto" xmlns="http://www.w3.org/1999/html">
 <head>
 <meta charset="UTF-8">
+  <script>
+  (function () {
+    var path = location.pathname;
+    // 只在路径不以 / 结尾，并且不是 .html 等文件时才重定向
+    if (!/\/$/.test(path) && !/\.[a-z0-9]+$/i.test(path)) {
+      location.replace(
+        path + '/' + location.search + location.hash
+      );
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 <meta name="renderer" content="webkit">
 <title>提词器</title>
-
 <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
 <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <!-- ============ 全局顶栏 ============ -->
 <mdui-top-app-bar class="app-top-bar" variant="medium" scroll-behavior="shrink elevate">
   <mdui-button-icon icon="article" disabled style="opacity:.85"></mdui-button-icon>
