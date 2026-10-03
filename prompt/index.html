@@ -15,11 +15,23 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 <meta name="renderer" content="webkit">
-<title>提词器</title>
-<link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+<title>可能是最好看实用的在线提词器--[atBread]</title>
+  <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown.min.css">
 <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+  <style>
+    .markdown-body {
+      background: transparent;
+      --bgColor-default: transparent;
+      text-align: left;
+      width: 100%;
+      margin: 0;
+      justify-self: start;
+      align-self: start;
+    }
+  </style>
 </head>
 <body>
 <!-- ============ 全局顶栏 ============ -->
@@ -142,15 +154,30 @@
   <!-- ============ 关于视图 ============ -->
   <div class="view about-view" id="view-about">
     <mdui-icon name="article" class="about-icon"></mdui-icon>
-    <br>
-    <p class="about-subtitle">使用了 mdui 2 web 主题</p>
+    <br><br><br>
 
-    <div class="about-desc">
-      <p><mdui-icon name="check_circle"></mdui-icon>没什么好写的。</p>
-      <a href="https://atbrea.de/" target="_blank" rel="noopener">
-        <mdui-icon name="home"></mdui-icon> 返回主站
-      </a>
-    </div>
+
+      <div id="log" class="markdown-body">
+        <p class="state">加载中…</p>
+      </div>
+
+      <script type="module">
+        import { marked } from 'https://cdn.jsdelivr.net/npm/marked@12/lib/marked.esm.js';
+
+        const el = document.getElementById('log');
+
+        // 同源：直接用相对路径；加时间戳绕过 GitHub Pages 的 10 分钟缓存
+        const url = `./CHANGELOG.md?t=${Date.now()}`;
+
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const md = await res.text();
+          el.innerHTML = marked.parse(md);
+        } catch (e) {
+          el.innerHTML = `<p class="state">更新日志加载失败：${e.message}</p>`;
+        }
+      </script>
   </div>
 
 </div>
